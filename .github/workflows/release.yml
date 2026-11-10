@@ -37,12 +37,13 @@ jobs:
         with:
           distribution: temurin
           java-version: 21
-      - uses: android-actions/setup-android@v3
       - name: Build APK
         env:
           ANDROID_KEYSTORE: ${{ secrets.ANDROID_KEYSTORE }}
           ANDROID_KEYSTORE_PROPERTIES: ${{ secrets.ANDROID_KEYSTORE_PROPERTIES }}
         run: |
+          # The runner already has the Android SDK (ANDROID_HOME); Gradle fetches what's missing.
+          yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses > /dev/null 2>&1 || true
           cd src/android
           mkdir -p keystore
           echo "$ANDROID_KEYSTORE" | base64 -d > keystore/release.jks
