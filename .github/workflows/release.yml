@@ -1,0 +1,143 @@
+# Builds a release from the private source repo and publishes it here.
+# Triggered only by hand (or scripts/release.sh in the source repo): never by pull requests, so the
+# secrets below are only ever used by the owner. These logs are public: the build steps print no
+# compiler output.
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Tag of the private source repo (e.g. v1.0.0)
+        required: true
+      version:
+        description: Version (e.g. 1.0.0)
+        required: true
+
+permissions:
+  contents: write
+
+concurrency: release
+
+env:
+  SOURCE_REPO: edisoft00/display-universal
+
+jobs:
+  android:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get source
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ env.SOURCE_REPO }}
+          ref: ${{ inputs.ref }}
+          ssh-key: ${{ secrets.SOURCE_DEPLOY_KEY }}
+          path: src
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+      - uses: android-actions/setup-android@v3
+      - name: Build APK
+        env:
+          ANDROID_KEYSTORE: ${{ secrets.ANDROID_KEYSTORE }}
+          ANDROID_KEYSTORE_PROPERTIES: ${{ secrets.ANDROID_KEYSTORE_PROPERTIES }}
+        run: |
+          cd src/android
+          mkdir -p keystore
+          echo "$ANDROID_KEYSTORE" | base64 -d > keystore/release.jks
+          printf '%s\n' "$ANDROID_KEYSTORE_PROPERTIES" > keystore.properties
+          CODE=$((1000 + GITHUB_RUN_NUMBER))
+          printf 'versionCode=%s\nversionName=%s\n' "$CODE" "${{ inputs.version }}" > version.properties
+          if ! ./gradlew --quiet assembleRelease > "$RUNNER_TEMP/gradle.log" 2>&1; then
+            echo "Android build failed. Files with errors (details stay private; reproduce locally):"
+            grep -E "^e: " "$RUNNER_TEMP/gradle.log" | sed -E 's|^e: .*/([^/:]+):[0-9]+:[0-9]+.*|  \1|' | sort | uniq -c || true
+            exit 1
+          fi
+          mkdir -p "$GITHUB_WORKSPACE/out"
+          cp app/build/outputs/apk/release/app-release.apk "$GITHUB_WORKSPACE/out/DisplayUniversal.apk"
+          echo "$CODE" > "$GITHUB_WORKSPACE/out/DisplayUniversal.apk.version"
+          rm -f keystore/release.jks keystore.properties
+      - uses: actions/upload-artifact@v4
+        with:
+          name: apk
+          path: out/
+          retention-days: 1
+
+  mac:
+    needs: android
+    runs-on: macos-latest
+    steps:
+      - name: Get source
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ env.SOURCE_REPO }}
+          ref: ${{ inputs.ref }}
+          ssh-key: ${{ secrets.SOURCE_DEPLOY_KEY }}
+          path: src
+      - uses: actions/download-artifact@v4
+        with:
+          name: apk
+          path: src/build
+      - name: Signing keychain
+        env:
+          MAC_CERT_P12: ${{ secrets.MAC_CERT_P12 }}
+          MAC_CERT_PASSWORD: ${{ secrets.MAC_CERT_PASSWORD }}
+        run: |
+          KC="$RUNNER_TEMP/signing.keychain-db"
+          KP="$(uuidgen)"
+          security create-keychain -p "$KP" "$KC"
+          security set-keychain-settings -lut 7200 "$KC"
+          security unlock-keychain -p "$KP" "$KC"
+          echo "$MAC_CERT_P12" | base64 -d > "$RUNNER_TEMP/cert.p12"
+          security import "$RUNNER_TEMP/cert.p12" -k "$KC" -P "$MAC_CERT_PASSWORD" -T /usr/bin/codesign -T /usr/bin/security > /dev/null
+          rm -f "$RUNNER_TEMP/cert.p12"
+          curl -fsSL https://www.apple.com/certificateauthority/AppleWWDRCAG3.cer -o "$RUNNER_TEMP/wwdr.cer"
+          security import "$RUNNER_TEMP/wwdr.cer" -k "$KC" > /dev/null || true
+          security set-key-partition-list -S apple-tool:,apple: -s -k "$KP" "$KC" > /dev/null
+          security list-keychains -d user -s "$KC" $(security list-keychains -d user | tr -d '"')
+          security find-identity -v -p codesigning "$KC" | grep -c "Apple Development" > /dev/null
+      - name: Tools
+        run: |
+          brew install --quiet xcodegen > /dev/null
+          curl -fsSL https://dl.google.com/android/repository/platform-tools-latest-darwin.zip -o "$RUNNER_TEMP/pt.zip"
+          unzip -q "$RUNNER_TEMP/pt.zip" -d "$RUNNER_TEMP"
+          echo "$RUNNER_TEMP/platform-tools" >> "$GITHUB_PATH"
+      - name: Build Mac app
+        run: src/scripts/ci-mac.sh "${{ inputs.version }}" "$((1000 + GITHUB_RUN_NUMBER))"
+      - name: Sign update and write appcast
+        env:
+          SPARKLE_PRIVATE_KEY: ${{ secrets.SPARKLE_PRIVATE_KEY }}
+        run: |
+          VERSION="${{ inputs.version }}"
+          BUILD=$((1000 + GITHUB_RUN_NUMBER))
+          ZIP=src/build/DisplayUniversal-mac.zip
+          KEY="$RUNNER_TEMP/sparkle.key"
+          printf '%s' "$SPARKLE_PRIVATE_KEY" > "$KEY"
+          SIG=$(src/mac/build/DerivedData/SourcePackages/artifacts/sparkle/Sparkle/bin/sign_update --ed-key-file "$KEY" "$ZIP")
+          rm -f "$KEY"
+          URL="https://github.com/${{ github.repository }}/releases/download/v$VERSION/DisplayUniversal-mac.zip"
+          cat > appcast.xml <<XML
+          <?xml version="1.0" encoding="utf-8"?>
+          <rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle">
+            <channel>
+              <title>Display Universal</title>
+              <item>
+                <title>Version $VERSION</title>
+                <pubDate>$(date -u '+%a, %d %b %Y %H:%M:%S +0000')</pubDate>
+                <sparkle:version>$BUILD</sparkle:version>
+                <sparkle:shortVersionString>$VERSION</sparkle:shortVersionString>
+                <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+                <enclosure url="$URL" type="application/octet-stream" $SIG/>
+              </item>
+            </channel>
+          </rss>
+          XML
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          VERSION="${{ inputs.version }}"
+          gh release create "v$VERSION" --repo "${{ github.repository }}" --title "Display Universal $VERSION" \
+            --notes "Mac: build $((1000 + GITHUB_RUN_NUMBER)). Android: versionCode $(cat src/build/DisplayUniversal.apk.version)." \
+            src/build/DisplayUniversal-mac.zip src/build/DisplayUniversal.apk appcast.xml
