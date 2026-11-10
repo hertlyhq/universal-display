@@ -49,7 +49,7 @@ jobs:
           mkdir -p keystore
           echo "$ANDROID_KEYSTORE" | base64 -d > keystore/release.jks
           printf '%s\n' "$ANDROID_KEYSTORE_PROPERTIES" > keystore.properties
-          CODE=$((1000 + GITHUB_RUN_NUMBER))
+          CODE=$((2000 + GITHUB_RUN_NUMBER))
           printf 'versionCode=%s\nversionName=%s\n' "$CODE" "${{ inputs.version }}" > version.properties
           if ! ./gradlew --quiet assembleRelease > "$RUNNER_TEMP/gradle.log" 2>&1; then
             echo "Android build failed. Files with errors (details stay private; reproduce locally):"
@@ -108,7 +108,7 @@ jobs:
           unzip -q "$RUNNER_TEMP/pt.zip" -d "$RUNNER_TEMP"
           echo "$RUNNER_TEMP/platform-tools" >> "$GITHUB_PATH"
       - name: Build Mac app
-        run: src/scripts/ci-mac.sh build "${{ inputs.version }}" "$((1000 + GITHUB_RUN_NUMBER))"
+        run: src/scripts/ci-mac.sh build "${{ inputs.version }}" "$((2000 + GITHUB_RUN_NUMBER))"
       - name: Wait for the Android app
         env:
           GH_TOKEN: ${{ github.token }}
@@ -125,7 +125,7 @@ jobs:
           SPARKLE_PRIVATE_KEY: ${{ secrets.SPARKLE_PRIVATE_KEY }}
         run: |
           VERSION="${{ inputs.version }}"
-          BUILD=$((1000 + GITHUB_RUN_NUMBER))
+          BUILD=$((2000 + GITHUB_RUN_NUMBER))
           ZIP=src/build/UniversalDisplay-mac.zip
           KEY="$RUNNER_TEMP/sparkle.key"
           printf '%s' "$SPARKLE_PRIVATE_KEY" > "$KEY"
@@ -155,7 +155,7 @@ jobs:
           VERSION="${{ inputs.version }}"
           # Notes from the Conventional Commits since the previous tag.
           src/scripts/release-notes.sh "${{ inputs.ref }}" > notes.md
-          printf '\n---\nMac build %s · Android versionCode %s\n' "$((1000 + GITHUB_RUN_NUMBER))" \
+          printf '\n---\nMac build %s · Android versionCode %s\n' "$((2000 + GITHUB_RUN_NUMBER))" \
             "$(cat src/build/UniversalDisplay.apk.version)" >> notes.md
           gh release create "v$VERSION" --repo "${{ github.repository }}" --title "Universal Display $VERSION" \
             --notes-file notes.md \

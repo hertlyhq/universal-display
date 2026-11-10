@@ -41,8 +41,9 @@ open, use it as a dashboard. And when you want, control the Mac right from the t
 - **🔌 USB, cable or Wi‑Fi — switch freely.** Plug the tablet in and it connects by itself. Unplug it and
   the picture moves to Wi‑Fi without your windows jumping around.
 - **📐 Looks native.** Text and windows keep the same physical size as on your Mac's own screen.
-- **👆 Touch and keyboard control (optional).** Tap to click, drag, scroll with two fingers, long‑press for a
-  right click, and type with the on‑screen or a hardware keyboard.
+- **👆 Touch and keyboard control (optional).** Tap to click, drag, scroll with two fingers, pinch to zoom,
+  swipe with three fingers between desktops like on a Mac trackpad, and type with the on‑screen or a
+  hardware keyboard.
 - **💻 Mac to Mac.** Use a second Mac as a display with one click — even over a USB‑C cable for the lowest
   latency (~15 ms).
 - **🔐 Private by design.** Everything stays on your local network or cable. Wi‑Fi devices pair once with a
@@ -80,6 +81,9 @@ Click the cursor icon next to the device in the menu, and allow **Accessibility*
 | Drag | Drag, select, move windows |
 | Two‑finger drag | Scroll (with momentum) |
 | Long press or two‑finger tap | Right click |
+| Pinch | Zoom in / out |
+| Three‑finger swipe left / right | Switch desktops (Spaces) |
+| Three‑finger swipe up / down | Mission Control / App windows |
 | ⌨ button | On‑screen keyboard |
 
 ## Performance
