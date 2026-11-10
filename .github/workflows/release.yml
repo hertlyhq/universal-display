@@ -21,7 +21,7 @@ permissions:
 concurrency: release
 
 env:
-  SOURCE_REPO: edisoft00/display-universal
+  SOURCE_REPO: hertlyhq/universal-display-code
 
 jobs:
   android:
@@ -57,8 +57,8 @@ jobs:
             exit 1
           fi
           mkdir -p "$GITHUB_WORKSPACE/out"
-          cp app/build/outputs/apk/release/app-release.apk "$GITHUB_WORKSPACE/out/DisplayUniversal.apk"
-          echo "$CODE" > "$GITHUB_WORKSPACE/out/DisplayUniversal.apk.version"
+          cp app/build/outputs/apk/release/app-release.apk "$GITHUB_WORKSPACE/out/UniversalDisplay.apk"
+          echo "$CODE" > "$GITHUB_WORKSPACE/out/UniversalDisplay.apk.version"
           rm -f keystore/release.jks keystore.properties
       - uses: actions/upload-artifact@v4
         with:
@@ -116,7 +116,7 @@ jobs:
             gh run download "$GITHUB_RUN_ID" -R "${{ github.repository }}" -n apk -D src/build > /dev/null 2>&1 && break
             sleep 10
           done
-          test -f src/build/DisplayUniversal.apk
+          test -f src/build/UniversalDisplay.apk
       - name: Package
         run: src/scripts/ci-mac.sh package
       - name: Sign update and write appcast
@@ -125,17 +125,17 @@ jobs:
         run: |
           VERSION="${{ inputs.version }}"
           BUILD=$((1000 + GITHUB_RUN_NUMBER))
-          ZIP=src/build/DisplayUniversal-mac.zip
+          ZIP=src/build/UniversalDisplay-mac.zip
           KEY="$RUNNER_TEMP/sparkle.key"
           printf '%s' "$SPARKLE_PRIVATE_KEY" > "$KEY"
           SIG=$(src/mac/build/DerivedData/SourcePackages/artifacts/sparkle/Sparkle/bin/sign_update --ed-key-file "$KEY" "$ZIP")
           rm -f "$KEY"
-          URL="https://github.com/${{ github.repository }}/releases/download/v$VERSION/DisplayUniversal-mac.zip"
+          URL="https://github.com/${{ github.repository }}/releases/download/v$VERSION/UniversalDisplay-mac.zip"
           cat > appcast.xml <<XML
           <?xml version="1.0" encoding="utf-8"?>
           <rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle">
             <channel>
-              <title>Display Universal</title>
+              <title>Universal Display</title>
               <item>
                 <title>Version $VERSION</title>
                 <pubDate>$(date -u '+%a, %d %b %Y %H:%M:%S +0000')</pubDate>
@@ -152,6 +152,6 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           VERSION="${{ inputs.version }}"
-          gh release create "v$VERSION" --repo "${{ github.repository }}" --title "Display Universal $VERSION" \
-            --notes "Mac: build $((1000 + GITHUB_RUN_NUMBER)). Android: versionCode $(cat src/build/DisplayUniversal.apk.version)." \
-            src/build/DisplayUniversal-mac.zip src/build/DisplayUniversal.apk appcast.xml
+          gh release create "v$VERSION" --repo "${{ github.repository }}" --title "Universal Display $VERSION" \
+            --notes "Mac: build $((1000 + GITHUB_RUN_NUMBER)). Android: versionCode $(cat src/build/UniversalDisplay.apk.version)." \
+            src/build/UniversalDisplay-mac.zip src/build/UniversalDisplay.apk appcast.xml
