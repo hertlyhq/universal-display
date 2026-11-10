@@ -77,6 +77,7 @@ jobs:
           ref: ${{ inputs.ref }}
           ssh-key: ${{ secrets.SOURCE_DEPLOY_KEY }}
           path: src
+          fetch-depth: 0 # history and tags, for the release notes
       - name: Signing keychain
         env:
           MAC_CERT_P12: ${{ secrets.MAC_CERT_P12 }}
@@ -152,6 +153,10 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           VERSION="${{ inputs.version }}"
+          # Notes from the Conventional Commits since the previous tag.
+          src/scripts/release-notes.sh "${{ inputs.ref }}" > notes.md
+          printf '\n---\nMac build %s · Android versionCode %s\n' "$((1000 + GITHUB_RUN_NUMBER))" \
+            "$(cat src/build/UniversalDisplay.apk.version)" >> notes.md
           gh release create "v$VERSION" --repo "${{ github.repository }}" --title "Universal Display $VERSION" \
-            --notes "Mac: build $((1000 + GITHUB_RUN_NUMBER)). Android: versionCode $(cat src/build/UniversalDisplay.apk.version)." \
+            --notes-file notes.md \
             src/build/UniversalDisplay-mac.zip src/build/UniversalDisplay.apk appcast.xml
