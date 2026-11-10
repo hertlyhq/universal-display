@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/icon.png" width="112" height="112" alt="Universal Display icon">
+  <img src="assets/app-icon.png" width="112" height="112" alt="Universal Display icon">
 </p>
 
 <h1 align="center">Universal Display</h1>
