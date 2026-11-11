@@ -74,7 +74,8 @@ open, use it as a dashboard. And when you want, control the Mac right from the t
 
 ### 3. Optional: control the Mac from the tablet
 
-Click the cursor icon next to the device in the menu, and allow **Accessibility** when macOS asks.
+Tap the tablet (or click on the other Mac) and press **Request control**, then **Allow** on your Mac.
+Or click the cursor icon next to the device in the menu. Allow **Accessibility** when macOS asks.
 
 | On the tablet | Does |
 |---|---|
