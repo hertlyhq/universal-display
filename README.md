@@ -37,7 +37,8 @@ open, use it as a dashboard. And when you want, control the Mac right from the t
 - **🖥️ A real second display.** macOS sees a new monitor sized for your tablet. Arrange it left, right,
   above or below — Universal Display remembers where you put it.
 - **⚡️ Smooth.** Hardware video encoding on the Mac and hardware decoding on the receiver:
-  ~57–60 fps with ~20–70 ms from Mac to screen.
+  ~57–60 fps with ~20–70 ms from Mac to screen. The pointer travels on its own, ahead of the picture,
+  so it moves instantly.
 - **🔌 USB, cable or Wi‑Fi — switch freely.** Plug the tablet in and it connects by itself. Unplug it and
   the picture moves to Wi‑Fi without your windows jumping around.
 - **📐 Looks native.** Text and windows keep the same physical size as on your Mac's own screen.
