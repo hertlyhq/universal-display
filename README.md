@@ -10,16 +10,16 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/hertly-builds/universal-display/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/hertly-builds/universal-display?label=release&color=3B6FD8"></a>
-  <a href="https://github.com/hertly-builds/universal-display/releases"><img alt="Downloads" src="https://img.shields.io/github/downloads/hertly-builds/universal-display/total?color=6E56CF"></a>
+  <a href="https://github.com/hertlyhq/universal-display/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/hertlyhq/universal-display?label=release&color=3B6FD8"></a>
+  <a href="https://github.com/hertlyhq/universal-display/releases"><img alt="Downloads" src="https://img.shields.io/github/downloads/hertlyhq/universal-display/total?color=6E56CF"></a>
   <img alt="macOS 14+" src="https://img.shields.io/badge/macOS-14%2B-111?logo=apple">
   <img alt="Android 8+" src="https://img.shields.io/badge/Android-8%2B-3DDC84?logo=android&logoColor=white">
 </p>
 
 <p align="center">
-  <a href="https://github.com/hertly-builds/universal-display/releases/latest/download/UniversalDisplay-mac.zip"><b>⬇︎ Download for Mac</b></a>
+  <a href="https://github.com/hertlyhq/universal-display/releases/latest/download/UniversalDisplay-mac.zip"><b>⬇︎ Download for Mac</b></a>
   &nbsp;·&nbsp;
-  <a href="https://github.com/hertly-builds/universal-display/releases/latest/download/UniversalDisplay.apk"><b>⬇︎ Android app</b></a>
+  <a href="https://github.com/hertlyhq/universal-display/releases/latest/download/UniversalDisplay.apk"><b>⬇︎ Android app</b></a>
 </p>
 
 <p align="center">
@@ -54,7 +54,7 @@ open, use it as a dashboard. And when you want, control the Mac right from the t
 
 ### 1. On your Mac
 
-1. [Download `UniversalDisplay-mac.zip`](https://github.com/hertly-builds/universal-display/releases/latest/download/UniversalDisplay-mac.zip),
+1. [Download `UniversalDisplay-mac.zip`](https://github.com/hertlyhq/universal-display/releases/latest/download/UniversalDisplay-mac.zip),
    unzip it and move **Universal Display** to **Applications**.
 2. Open it. It lives in the menu bar.
 3. Allow **Screen Recording** when macOS asks (System Settings › Privacy & Security), then reopen the app.
@@ -67,7 +67,7 @@ open, use it as a dashboard. And when you want, control the Mac right from the t
 
 - **Over USB (easiest):** turn on *USB debugging* on the tablet (Developer options) and plug it into the
   Mac. Universal Display installs the tablet app and starts showing your screen — no download needed.
-- **Over Wi‑Fi:** install [`UniversalDisplay.apk`](https://github.com/hertly-builds/universal-display/releases/latest/download/UniversalDisplay.apk),
+- **Over Wi‑Fi:** install [`UniversalDisplay.apk`](https://github.com/hertlyhq/universal-display/releases/latest/download/UniversalDisplay.apk),
   open it, then press **Connect** next to the tablet in the Mac's menu and type the code shown on the
   tablet.
 

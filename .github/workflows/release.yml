@@ -21,7 +21,7 @@ permissions:
 concurrency: release
 
 env:
-  SOURCE_REPO: hertlyhq/universal-display
+  SOURCE_REPO: hertlyhq/universal-display-code
 
 jobs:
   android:
