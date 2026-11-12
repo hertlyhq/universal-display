@@ -45,8 +45,8 @@ open, use it as a dashboard. And when you want, control the Mac right from the t
 - **👆 Touch and keyboard control (optional).** Tap to click, drag, scroll with two fingers, pinch to zoom,
   swipe with three fingers between desktops like on a Mac trackpad, and type with the on‑screen or a
   hardware keyboard.
-- **💻 Mac to Mac.** Use a second Mac as a display with one click — even over a USB‑C cable for the lowest
-  latency (~15 ms).
+- **💻 Mac to Mac.** Use a second Mac as a display with one click — or just plug in a USB‑C cable: the Mac
+  that isn't set up as a display connects to the other by itself, with the lowest latency (~15 ms).
 - **🔐 Private by design.** Everything stays on your local network or cable. Wi‑Fi devices pair once with a
   4‑digit code.
 - **🔄 Always up to date.** The Mac app updates itself, and keeps the tablet app updated too.
