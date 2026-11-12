@@ -104,6 +104,7 @@ Measured on a MacBook Air (M3), a MacBook Pro (M1 Pro) and an 11" MediaTek table
 |---|---|---|
 | Mac → Mac, USB‑C cable | 55–60 fps | ~12–22 ms |
 | Mac → Mac, Wi‑Fi | 55–60 fps | ~22–40 ms |
+| Remote control Mac → Mac, Wi‑Fi | 57 fps | ~25–35 ms |
 | Mac → tablet, USB | 57 fps | ~60 ms |
 | Mac → tablet, Wi‑Fi | 57 fps | ~70 ms |
 
