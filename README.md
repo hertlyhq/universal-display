@@ -39,8 +39,8 @@ open, use it as a dashboard. And when you want, control the Mac right from the t
 - **⚡️ Smooth.** Hardware video encoding on the Mac and hardware decoding on the receiver:
   ~57–60 fps with ~20–70 ms from Mac to screen. The pointer travels on its own, ahead of the picture,
   so it moves instantly.
-- **🔌 USB, cable or Wi‑Fi — switch freely.** Plug the tablet in and it connects by itself. Unplug it and
-  the picture moves to Wi‑Fi without your windows jumping around.
+- **🔌 USB, cable or Wi‑Fi — switch freely.** Click **Connect** and it's on. Unplug the tablet and the
+  picture moves to Wi‑Fi without your windows jumping around. Nothing connects unless you ask.
 - **📐 Looks native.** Text and windows keep the same physical size as on your Mac's own screen.
 - **👆 Touch and keyboard control (optional).** Tap to click, drag, scroll with two fingers, pinch to zoom,
   swipe with three fingers between desktops like on a Mac trackpad, and type with the on‑screen or a
@@ -69,8 +69,9 @@ open, use it as a dashboard. And when you want, control the Mac right from the t
 
 ### 2. On your tablet
 
-- **Over USB (easiest):** turn on *USB debugging* on the tablet (Developer options) and plug it into the
-  Mac. Universal Display installs the tablet app and starts showing your screen — no download needed.
+- **Over USB (easiest):** turn on *USB debugging* on the tablet (Developer options), plug it into the
+  Mac and click **Connect** next to it in the menu. Universal Display installs the tablet app and starts
+  showing your screen — no download needed.
 - **Over Wi‑Fi:** install [`UniversalDisplay.apk`](https://github.com/hertlyhq/universal-display/releases/latest/download/UniversalDisplay.apk),
   open it, then press **Connect** next to the tablet in the Mac's menu and type the code shown on the
   tablet.
