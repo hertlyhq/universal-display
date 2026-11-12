@@ -147,15 +147,20 @@ Remote desktop also offers a trackpad mode (move the pointer like on a laptop) b
 
 ## Performance
 
-Measured on a MacBook Air (M3), a MacBook Pro (M1 Pro) and an 11" MediaTek tablet:
+Measured in November 2026 on a MacBook Air (M3), a MacBook Pro (M1 Pro) and an 11" MediaTek tablet,
+with the picture changing all the time:
 
 | Setup | Frame rate | Mac → screen |
 |---|---:|---:|
 | Mac → Mac, USB‑C cable | 55–60 fps | ~12–22 ms |
-| Mac → Mac, Wi‑Fi | 55–60 fps | ~22–40 ms |
-| Remote control Mac → Mac, Wi‑Fi | 57 fps | ~25–35 ms |
+| Mac → Mac, Wi‑Fi | 55–60 fps | ~22–35 ms |
+| Remote control Mac → Mac, Wi‑Fi | 57 fps | ~25–40 ms |
 | Mac → tablet, USB | 57 fps | ~60 ms |
 | Mac → tablet, Wi‑Fi | 57 fps | ~70 ms |
+
+Wi‑Fi times depend on how busy the network is: remote control between the two Macs measured ~25 ms at
+night and ~35–40 ms in the middle of the day. Most of the rest is the hardware — encoding takes ~11 ms on
+an M3 and ~20 ms on an M1 Pro, and the tablet needs ~38 ms to decode.
 
 ## Privacy and security
 
