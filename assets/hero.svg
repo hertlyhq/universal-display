@@ -116,7 +116,6 @@
     <rect x="642" y="402" width="18" height="18" rx="5" fill="#64D2FF"/>
   </g>
   <rect x="270" y="86" width="560" height="356" rx="22" fill="url(#sheen)"/>
-  <rect x="514" y="99" width="72" height="12" rx="6" fill="#0B0D18"/>
   <path d="M220 442 H880 V452 Q880 462 866 462 H234 Q220 462 220 452 Z" fill="url(#base)"/>
   <path d="M500 442 H600 Q596 449 586 449 H514 Q504 449 500 442 Z" fill="#4A5170"/>
 
