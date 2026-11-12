@@ -47,6 +47,9 @@ open, use it as a dashboard. And when you want, control the Mac right from the t
   hardware keyboard.
 - **💻 Mac to Mac.** Use a second Mac as a display with one click — or just plug in a USB‑C cable: the Mac
   that isn't set up as a display connects to the other by itself, with the lowest latency (~15 ms).
+- **📱 Remote desktop.** See and control your Mac from an Android phone or tablet — at home, or anywhere
+  over [Tailscale](https://tailscale.com). Trackpad or direct touch, keyboard with the Mac's keys, and it
+  can even unlock a locked Mac. Pair once at home by typing the code shown on the device into the Mac.
 - **🔐 Private by design.** Everything stays on your local network or cable. Wi‑Fi devices pair once with a
   4‑digit code.
 - **🔄 Always up to date.** The Mac app updates itself, and keeps the tablet app updated too.
@@ -125,7 +128,8 @@ Universal Display is for what Sidecar can't do: Android tablets and Mac‑to‑M
 <details>
 <summary><b>Is the picture sent to the internet?</b></summary>
 
-No. The stream goes straight from your Mac to the device over USB, a cable or your local Wi‑Fi.
+No. The stream goes straight from your Mac to the device over USB, a cable or your local Wi‑Fi. Remote
+desktop away from home goes over your own Tailscale network, encrypted end to end.
 </details>
 
 <details>
