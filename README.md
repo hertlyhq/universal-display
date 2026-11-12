@@ -45,13 +45,17 @@ open, use it as a dashboard. And when you want, control the Mac right from the t
 - **👆 Touch and keyboard control (optional).** Tap to click, drag, scroll with two fingers, pinch to zoom,
   swipe with three fingers between desktops like on a Mac trackpad, and type with the on‑screen or a
   hardware keyboard.
-- **💻 Mac to Mac.** Use a second Mac as a display with one click — or just plug in a USB‑C cable: the Mac
-  that isn't set up as a display connects to the other by itself, with the lowest latency (~15 ms).
-- **📱 Remote desktop.** See and control your Mac from an Android phone or tablet — at home, or anywhere
-  over [Tailscale](https://tailscale.com). Trackpad or direct touch, keyboard with the Mac's keys, and it
-  can even unlock a locked Mac. Pair once at home by typing the code shown on the device into the Mac.
-- **🔐 Private by design.** Everything stays on your local network or cable. Wi‑Fi devices pair once with a
-  4‑digit code.
+- **💻 Mac to Mac.** Use a second Mac as a display with one click — over Wi‑Fi or, with the lowest latency
+  (~15 ms), a USB‑C cable between them. Or control the other Mac from the menu's **Remote Control** tab.
+  One pairing between two Macs covers everything.
+- **📱 Remote desktop.** See and control your Mac from another Mac or an Android phone or tablet — at home,
+  or anywhere over [Tailscale](https://tailscale.com). Trackpad or direct touch, keyboard with the Mac's
+  keys, and it can even unlock a locked Mac. Pair once at home by typing the code shown on the device.
+- **🛡️ You stay in charge.** Touch your Mac's own mouse, trackpad or keyboard and remote control pauses
+  (the device sees a blurred screen) until 5 seconds after you stop — you never fight a remote pointer.
+- **🔐 Private by design.** Everything stays on your local network or cable. Devices pair once with a
+  4‑digit code; see, remove or block them in **Settings**. A blocked device can't connect and doesn't even
+  see your Mac.
 - **🔄 Always up to date.** The Mac app updates itself, and keeps the tablet app updated too.
 
 ## Get started
